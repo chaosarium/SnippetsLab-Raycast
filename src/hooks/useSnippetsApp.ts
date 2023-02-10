@@ -13,6 +13,11 @@ export default function useSnippetsApp(): [Application | null, boolean] {
           setsnippetsApp(application);
           return;
         }
+        if (application.bundleId?.startsWith("com.renfei.snippetslab-setapp")) {
+          setIsLoading(false);
+          setsnippetsApp(application);
+          return;
+        }
       }
       setIsLoading(false);
     })();

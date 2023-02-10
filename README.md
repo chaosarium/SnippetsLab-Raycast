@@ -1,1 +1,1 @@
-# SnippetsLab
+At least it works. You do need to extract `SnippetsLabAlfredWorkflow` from the SnippetsLab app bundle and set a path to it to make things work. 

@@ -21,7 +21,7 @@ export default function ({ result, index }: { result: SnippetsResult; index: str
       icon={result.icon}
       actions={
         <ActionPanel>
-          <Action title="Paste" onAction={async () => pasteCallbackInBackground(snippetsApp.path, index)} />
+          <Action title="Paste" onAction={async () => pasteCallbackInBackground(snippetsApp?.path ? snippetsApp?.path : "", index)} />
           <Action title="Copy to clipboard" shortcut={{ modifiers: ["cmd"], key: "enter" }} onAction={async () => copyCallbackInBackground(index)} />
           <Action title="Open in SnippetsLab" shortcut={{ modifiers: ["opt"], key: "enter" }} onAction={async () => openCallbackInBackground(index)} />
         </ActionPanel>
@@ -48,7 +48,7 @@ async function copyCallbackInBackground(snippetsIndex: string) {
 async function pasteCallbackInBackground(path: string, snippetsIndex: string) {
   await closeMainWindow({ clearRootSearch: true });
 
-  const { stdout: data } = await execFilePromisified(`./SnippetsLabAlfredWorkflow`, ["--action=fetch", `--query=${snippetsIndex}`], {
+  const { stdout: data } = await execFilePromisified(`/Users/chaosarium/Documents/Raycast/SnippetsLabAlfredWorkflow`, ["--action=fetch", `--query=${snippetsIndex}`], {
     cwd: `${path}/Contents/SharedSupport/Integrations`
   });
 

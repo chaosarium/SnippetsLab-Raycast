@@ -43,7 +43,9 @@ export default function useSnippetsSearch(searchText: string): [SnippetsResult[]
 
 async function searchSnippets(snippetsApp: Application, query: string, signal: AbortSignal): Promise<SnippetsResult[]> {
   try {
-    const { stdout: data } = await execFilePromisified(`./SnippetsLabAlfredWorkflow`, ["--action=search", query], {
+    console.log("trying search with " + query)
+    console.log(`${snippetsApp.path}/Contents/SharedSupport/Integrations`)
+    const { stdout: data } = await execFilePromisified(`/Users/chaosarium/Documents/Raycast/SnippetsLabAlfredWorkflow`, ["--action=search", query], {
       cwd: `${snippetsApp.path}/Contents/SharedSupport/Integrations`,
       signal,
     });
@@ -60,6 +62,8 @@ async function searchSnippets(snippetsApp: Application, query: string, signal: A
     
     return [jsonData.items.item];
   } catch (err) {
+    console.log("caught error... uh oh")
+    console.log(err)
     if (err instanceof Error && err.name === "AbortError") {
       return [];
     }
